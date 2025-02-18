@@ -1,5 +1,6 @@
 package com.example.Hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class Medic {
     private String specializare;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "sectie_id")
     private Sectie sectie;
 }

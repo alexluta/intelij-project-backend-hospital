@@ -1,5 +1,6 @@
 package com.example.Hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class Sectie {
     private long id;
     private String denumire;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "sectie")
     private List<Medic> medici;
 

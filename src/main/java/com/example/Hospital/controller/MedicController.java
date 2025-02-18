@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class MedicController {
 
@@ -44,4 +46,12 @@ public class MedicController {
         Medic medic = medicServiceImpl.getMedicById(id);
         return ResponseEntity.status(HttpStatus.OK).body(medic);
     }
+
+    // Endpoint pentru raportul medicilor
+    @GetMapping("/raportMedici")
+    public ResponseEntity<List<Medic>> getRaportMedici() {
+        List<Medic> medici = medicServiceImpl.getAllMedic();  // Apelează metoda corectă
+        return ResponseEntity.status(HttpStatus.OK).body(medici);
+    }
+
 }

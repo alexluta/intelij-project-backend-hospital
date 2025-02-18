@@ -32,6 +32,11 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeRequests()
                 .requestMatchers("/api/auth/register").permitAll() // Permite înregistrarea utilizatorilor
+                .requestMatchers("/deleteMedic/**").permitAll()
+                .requestMatchers("/selectMedic/**").permitAll()
+                .requestMatchers("/raportMedici").permitAll()
+                .requestMatchers("/selectSectie").permitAll()
+
                 .anyRequest().authenticated() // Permite doar cererile autentificate
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

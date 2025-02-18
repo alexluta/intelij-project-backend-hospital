@@ -5,7 +5,9 @@ import com.example.Hospital.repository.MedicRepository;
 import com.example.Hospital.service.MedicService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +45,7 @@ public class MedicServiceImpl implements MedicService {
     public void deleteMedic(Long id) {
         Optional<Medic> medicOptional = medicRepository.findById(id);
         if(!medicOptional.isPresent()) {
-            throw new RuntimeException("No such Medic");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Medic not found");
         }
         medicRepository.deleteById(id);
     }
@@ -61,4 +63,5 @@ public class MedicServiceImpl implements MedicService {
         }
 
     }
+
 }

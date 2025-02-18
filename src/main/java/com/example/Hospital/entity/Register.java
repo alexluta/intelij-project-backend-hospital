@@ -11,5 +11,4 @@ public class Register {
     String email;
     String password;
 
-
 }
