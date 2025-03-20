@@ -1,5 +1,6 @@
 package com.example.Hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class Pacient {
     private String diagnostic;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "salon_id", nullable = false)  // Definește coloana care va face legătura cu Salon
     private Salon salon;  // Referința la Salon
 }
