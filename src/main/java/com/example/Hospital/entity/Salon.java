@@ -1,5 +1,6 @@
 package com.example.Hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,6 +23,7 @@ public class Salon {
 
     @ManyToOne
     @JoinColumn(name = "sectie_id", nullable = false)
+    @JsonManagedReference
     private Sectie sectie;
 
 }

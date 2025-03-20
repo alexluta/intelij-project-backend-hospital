@@ -41,6 +41,7 @@ public class SecurityConfig {
                 .requestMatchers("/selectSectie").permitAll()
                 .requestMatchers("/raportPacienti").permitAll()
                 .requestMatchers("/raportSaloane").permitAll()
+                .requestMatchers("/raportSectie").permitAll()
                 .anyRequest().authenticated() // Permite doar cererile autentificate
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

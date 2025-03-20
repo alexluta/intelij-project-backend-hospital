@@ -1,5 +1,6 @@
 package com.example.Hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,12 +17,14 @@ public class Sectie {
     private String denumire;
 
     @JsonIgnore
+
     @OneToMany(mappedBy = "sectie")
     private List<Medic> medici;
 
     @OneToMany(mappedBy = "sectie")
     private List<Asistenta> asistente;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "sectie")
     private List<Salon> saloane;
 

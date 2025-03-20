@@ -1,5 +1,6 @@
 package com.example.Hospital.controller;
 
+import com.example.Hospital.entity.Medic;
 import com.example.Hospital.entity.Sectie;
 import com.example.Hospital.service.SectieService;
 import com.example.Hospital.service.impl.SectieServiceImpl;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class SectieController {
@@ -42,6 +45,12 @@ public class SectieController {
     public ResponseEntity<Sectie> getSectie(@PathVariable Long id) {
         Sectie sectie = sectieServiceImpl.getSectieById(id);
         return ResponseEntity.status(HttpStatus.OK).body(sectie);
+    }
+    // Endpoint pentru raportul sectii
+    @GetMapping("/raportSectie")
+    public ResponseEntity<List<Sectie>> getRaportSectie() {
+        List<Sectie> sectii = sectieServiceImpl.getAllSectie();  // Apelează metoda corectă
+        return ResponseEntity.status(HttpStatus.OK).body(sectii);
     }
 
 }
