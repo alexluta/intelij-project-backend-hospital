@@ -1,6 +1,7 @@
 package com.example.Hospital.controller;
 
 
+import com.example.Hospital.entity.Medic;
 import com.example.Hospital.entity.Pacient;
 import com.example.Hospital.service.PacientService;
 import com.example.Hospital.service.impl.PacientServiceImpl;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class PacientController {
@@ -46,4 +49,12 @@ public class PacientController {
         Pacient pacient = pacientServiceImpl.getPacientById(id);
         return ResponseEntity.status(HttpStatus.OK).body(pacient);
     }
+
+    // Endpoint pentru raportul pacientilor
+    @GetMapping("/raportPacienti")
+    public ResponseEntity<List<Pacient>> getRaportPacienti() {
+        List<Pacient> pacienti = pacientServiceImpl.getAllPacient();  // Apelează metoda corectă
+        return ResponseEntity.status(HttpStatus.OK).body(pacienti);
+    }
+
 }

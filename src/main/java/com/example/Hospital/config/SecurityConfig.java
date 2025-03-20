@@ -35,8 +35,12 @@ public class SecurityConfig {
                 .requestMatchers("/deleteMedic/**").permitAll()
                 .requestMatchers("/selectMedic/**").permitAll()
                 .requestMatchers("/raportMedici").permitAll()
+                .requestMatchers("/raportAsistente").permitAll()
+                .requestMatchers("/deleteAsistente/**").permitAll()
+                .requestMatchers("/selectAsistente/**").permitAll()
                 .requestMatchers("/selectSectie").permitAll()
-
+                .requestMatchers("/raportPacienti").permitAll()
+                .requestMatchers("/raportSaloane").permitAll()
                 .anyRequest().authenticated() // Permite doar cererile autentificate
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
