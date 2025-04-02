@@ -32,6 +32,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeRequests()
                 .requestMatchers("/api/auth/register").permitAll() // Permite înregistrarea utilizatorilor
+                .requestMatchers("/api/auth/login").permitAll() // Permite înregistrarea utilizatorilor
                 .requestMatchers("/deleteMedic/**").permitAll()
                 .requestMatchers("/selectMedic/**").permitAll()
                 .requestMatchers("/raportMedici").permitAll()
@@ -53,3 +54,42 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(); // Îți poți alege orice alt encoder, dar BCrypt este recomandat.
     }
 }
+//
+//@Configuration
+//@EnableWebSecurity
+//public class SecurityConfig {
+//
+//    private final JwtService jwtUtil;
+//
+//    public SecurityConfig(JwtService jwtUtil) {
+//        this.jwtUtil = jwtUtil;
+//    }
+//
+//    // Definirea filtrului JWT
+//    @Bean
+//    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+//        return new JwtAuthenticationFilter(jwtUtil);
+//    }
+//
+//    // Configurarea securității API-urilor
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http.csrf().disable()
+//                .authorizeRequests()
+//                .requestMatchers("/api/auth/register", "/api/auth/login").permitAll() // Permite login și register fără autentificare
+//                .requestMatchers("/deleteMedic/**", "/selectMedic/**", "/raportMedici",
+//                        "/raportAsistente", "/deleteAsistente/**",
+//                        "/selectAsistente/**", "/selectSectie",
+//                        "/raportPacienti", "/raportSaloane", "/raportSectie").permitAll() // Permite accesul la rapoarte și la anumite endpoint-uri
+//                .anyRequest().authenticated() // Restul endpoint-urilor necesită autentificare
+//                .and()
+//                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // Adaugă filtrul pentru JWT înainte de autentificarea pe bază de username și parolă
+//        return http.build();
+//    }
+//
+//    // Configurarea encoder-ului pentru parole
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder(); // BCrypt este recomandat pentru criptarea parolelor
+//    }
+//}

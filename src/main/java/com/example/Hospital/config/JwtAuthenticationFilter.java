@@ -52,3 +52,38 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
         return null;
     }
 }
+//
+//@Component
+//public class JwtAuthenticationFilter extends OncePerRequestFilter {
+//
+//    private final JwtService jwtUtil;
+//
+//    public JwtAuthenticationFilter(JwtService jwtUtil) {
+//        this.jwtUtil = jwtUtil;
+//    }
+//
+//    @Override
+//    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+//        String token = extractJwtToken(request);
+//
+//        if (token != null) {
+//            String username = jwtUtil.extractEmail(token);
+//
+//            if (jwtUtil.validateToken(token, username)) {
+//                JwtAuthenticationToken authenticationToken = new JwtAuthenticationToken(username, token);
+//                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+//            }
+//        }
+//
+//        chain.doFilter(request, response);
+//    }
+//
+//    // Extrage token-ul JWT din antetul cererii
+//    private String extractJwtToken(HttpServletRequest request) {
+//        String authorizationHeader = request.getHeader("Authorization");
+//        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+//            return authorizationHeader.substring(7);
+//        }
+//        return null;
+//    }
+//}

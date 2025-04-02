@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,14 +44,37 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
-        User user = userServiceImpl.findByEmail(loginRequest.getEmail());
-        if (user != null && passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            String token = jwtUtil.generateToken(user.getEmail(), List.of("ROLE_USER"));
-            return ResponseEntity.ok("Bearer " + token);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-        }
+//    @PostMapping("/login")
+//    public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
+//        String email = loginRequest.getEmail();
+//        User user = userServiceImpl.findByEmail(loginRequest.getEmail());
+//        if (user == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email");
+//        }
+//
+//        if (user != null && passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+//            String token = jwtUtil.generateToken(user.getEmail(), List.of("ROLE_USER"));
+//            return ResponseEntity.ok("tonek " + token);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
+//        }
+//    }
+@PostMapping("/login")
+public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
+    String email = loginRequest.getEmail();
+    User user = userServiceImpl.findByEmail(email);
+
+    if (user == null) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"message\": \"Invalid email\"}");
     }
+
+    if (user != null && passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+        String token = jwtUtil.generateToken(user.getEmail(), List.of("ROLE_USER"));
+        return ResponseEntity.ok("{\"token\": \"" + token + "\"}");
+    } else {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"message\": \"Invalid password\"}");
+    }
+}
+
+
 }

@@ -13,8 +13,13 @@ public class HospitalApplication {
 		SpringApplication.run(HospitalApplication.class, args);
 	}
 
+	public class TestBCrypt {
+		public static void main(String[] args) {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			System.out.println(encoder.encode("parola_ta")); // schimbă "parola_ta" cu parola dorită
+		}
+	}
 }
-
 
 
 

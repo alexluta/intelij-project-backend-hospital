@@ -3,18 +3,25 @@ package com.example.Hospital.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 
 @Service
 public class JwtService {
+    private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    private String secretKey = "mySecretKey"; // Folosește o cheie secretă mai complexă într-o aplicație reală
+    public String getEncodedSecretKey() {
+        return Base64.getEncoder().encodeToString(secretKey.getEncoded());
+    }
+   // private String secretKey = "mySecretKey"; // Folosește o cheie secretă mai complexă într-o aplicație reală
 
     // Metodă pentru generarea unui token JWT
     public String generateToken(String email, List<String> roles) {
@@ -23,7 +30,7 @@ public class JwtService {
                 .claim("roles", roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // Tokenul expiră după 1 oră
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(secretKey)
                 .compact();
     }
 
